@@ -70,7 +70,7 @@ vagrant-prep: \
 	images \
 	${NULL}
 
-registry:
+registry: certs
 	${GIT_ROOT}/make/registry
 
 smoke:

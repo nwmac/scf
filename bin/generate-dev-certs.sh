@@ -143,7 +143,9 @@ openssl rsa -in "${certs_path}/jwt_signing.pem" -outform PEM -passin pass:"${sig
 # Instructions from https://github.com/cloudfoundry-incubator/diego-release#generating-tls-certificates
 
 # Generate internal CA
-certstrap --depot-path "${internal_certs_dir}" init --common-name "internalCA" --passphrase "${signing_key_passphrase}" --years 10
+if [ ! -f "${internal_certs_dir}/internalCA.key" ]; then
+    certstrap --depot-path "${internal_certs_dir}" init --common-name "internalCA" --passphrase "${signing_key_passphrase}" --years 10
+fi
 
 # generate AUCTIONEER_REP certs
 certstrap --depot-path "${internal_certs_dir}" request-cert --common-name auctioneer_rep --passphrase ""
